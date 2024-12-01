@@ -21,3 +21,18 @@ STOCK_AVENA_EMPAQUETADA
 
 # TEF
 FECHA_LLEGADA_PEDIDO
+
+
+main()
+  pass
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--debug', default=False, action='store_true')
+    args = parser.parse_args()
+
+    try:
+        main()
+    except Exception as e:
+        logger.exception(e)
