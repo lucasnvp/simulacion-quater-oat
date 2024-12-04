@@ -6,7 +6,7 @@ from datos import *
 STOCK_REPOSICION_AVENA = 10  # Cuando el stock de avena llega a 10 se realiza un pedido
 CANT_OPERARIOS = 10
 CANTIDAD_COMPRADA = 28000
-
+GANANCIA_PAQUETE_AVENA = 2800   # Entre 2800 y 3700 pesos
 
 def llegada_de_pedido():
     pass
@@ -42,8 +42,10 @@ def ventas(estados):
     if estados['stock_avena_empaquetada'] < 0:
         estados['ventas_totales'] += estados['stock_avena_empaquetada']
         estados['stock_avena_empaquetada'] = 0
+        estados['beneficio'] += estados['ventas_totales'] * GANANCIA_PAQUETE_AVENA
     else:
         estados['ventas_totales'] += ventas
+        estados['beneficio'] += ventas * GANANCIA_PAQUETE_AVENA
 
 
 def main(iterations: int):
@@ -69,7 +71,6 @@ def main(iterations: int):
 
         empaquetado(estados)
         ventas(estados)
-        # contro_de_stock()
 
 
     # Resultados
