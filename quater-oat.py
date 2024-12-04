@@ -13,7 +13,9 @@ def llegada_de_pedido():
 
 
 def empaquetado(estados):
-    # todo desperfecto de la maquina de empaquetado
+    if desperfecto_equipo_de_empaquetado():
+        estados['dia_perdido_por_desperfecto_maquina_empaquetadora'] += 1
+        return # No se empaqueta
 
     if estados['stock_avena'] == 0:
         estados['dia_perdido_por_falta_de_avena'] += 1
@@ -29,8 +31,6 @@ def empaquetado(estados):
 
 # def ventas(ventas_totales, stock_avena_empaquetada, dia_perdido_por_falta_de_avena):
 def ventas(estados):
-    # resultados['ventas_totales'] += 1
-
     if estados['stock_avena_empaquetada'] == 0:
         estados['dia_perdido_por_falta_de_paquetes'] += 1
         return
@@ -58,7 +58,8 @@ def main(iterations: int):
 
         'ventas_totales': 0,
         'dia_perdido_por_falta_de_paquetes': 0,
-        'dia_perdido_por_falta_de_avena': 0
+        'dia_perdido_por_falta_de_avena': 0,
+        'dia_perdido_por_desperfecto_maquina_empaquetadora': 0
     }
 
     for i in range(iterations):
