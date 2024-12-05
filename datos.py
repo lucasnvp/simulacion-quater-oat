@@ -25,8 +25,8 @@ def peste_en_avena():
     # Genera un número aleatorio entre 0 y 1
     probabilidad = random.uniform(0, 1)  # Entre 0 y 1, representa 0% a 100%
 
-    # El bolson de avena tiene una probabilidad de 1% a 5% de tener una peste
-    return 0.01 <= probabilidad <= 0.05
+    # El bolson de avena tiene una probabilidad de 1% a 2% de tener una peste
+    return 0.01 <= probabilidad <= 0.02
 
 
 def orden_de_compra():
