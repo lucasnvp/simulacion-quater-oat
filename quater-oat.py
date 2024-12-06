@@ -25,13 +25,18 @@ def empaquetado(estados):
         estados['dia_perdido_por_falta_de_avena'] += 1
         return
 
-    # todo probabilidad de que el operario no trabaje
-    paquetes = paquetes_por_dia() * CANT_OPERARIOS
-    estados['stock_avena_empaquetada'] += paquetes
+    operarios = 0
+    for i in range(CANT_OPERARIOS):
+        if not ausencia_empleado():
+            operarios += 1
+    paquetes = paquetes_por_dia() * operarios
 
     estados['stock_avena'] -= paquetes
     if estados['stock_avena'] < 0:
+        estados['stock_avena_empaquetada'] += estados['stock_avena']
         estados['stock_avena'] = 0
+    else:
+        estados['stock_avena_empaquetada'] += paquetes
 
 
 # def ventas(ventas_totales, stock_avena_empaquetada, dia_perdido_por_falta_de_avena):
@@ -41,7 +46,6 @@ def ventas(estados):
         return
 
     ventas = ventas_diarias()
-    estados['ventas_totales'] += ventas
     estados['stock_avena_empaquetada'] -= ventas
 
     if estados['stock_avena_empaquetada'] < 0:
