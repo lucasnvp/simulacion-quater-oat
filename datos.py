@@ -29,10 +29,6 @@ def peste_en_avena():
     return 0.01 <= probabilidad <= 0.02
 
 
-def orden_de_compra():
-    return random.randint(8, 12)
-
-
 def demora_proveedor():
     return random.randint(25, 35)
 
