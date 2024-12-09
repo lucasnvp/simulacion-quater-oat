@@ -2,15 +2,14 @@ import random
 
 # Datos
 def ventas_diarias():
-    return random.randint(500, 1000)
+    return random.randint(30, 40)
 
 
 def desperfecto_equipo_de_empaquetado():
     # Genera un número aleatorio entre 0 y 1
     probabilidad = random.uniform(0, 1)  # Entre 0 y 1, representa 0% a 100%
 
-    # La máquina se rompe si la probabilidad está entre 0.05 (5%) y 0.1 (10%)
-    return 0.05 <= probabilidad <= 0.1
+    return probabilidad <= 0.01
 
 
 def ausencia_empleado():
@@ -34,4 +33,4 @@ def demora_proveedor():
 
 
 def paquetes_por_dia():
-    return random.randint(100, 200)
+    return random.randint(30, 50)
