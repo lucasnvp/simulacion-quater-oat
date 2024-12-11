@@ -1,8 +1,19 @@
 import random
+import math
+from scipy.stats import gamma
 
-# Datos
+"""
+FDP de ventas diarias. Se modela como Gamma Distribution por método de la inversa
+Docs: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html
+ - alfa: continuous shape parameter (>0)
+ - beta: continuous scale parameter (>0)
+"""
 def ventas_diarias():
-    return random.randint(800, 1000)
+    alfa=3.3718
+    beta=515.21
+    R = random.uniform(0, 1)
+    # ppf (percent point function) is a less common name for the inverse of the Cumulative Distribution Function
+    return math.floor(gamma.ppf(R, alfa, scale=beta))
 
 
 def desperfecto_equipo_de_empaquetado():
@@ -33,4 +44,4 @@ def demora_proveedor():
 
 
 def paquetes_por_dia():
-    return random.randint(200, 300)
+    return random.randint(200, 250)
