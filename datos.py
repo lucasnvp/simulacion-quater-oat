@@ -2,7 +2,7 @@ import random
 
 # Datos
 def ventas_diarias():
-    return random.randint(30, 40)
+    return random.randint(800, 1000)
 
 
 def desperfecto_equipo_de_empaquetado():
@@ -33,4 +33,4 @@ def demora_proveedor():
 
 
 def paquetes_por_dia():
-    return random.randint(30, 50)
+    return random.randint(200, 300)
