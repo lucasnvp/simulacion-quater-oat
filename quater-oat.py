@@ -1,6 +1,5 @@
 import argparse
 import math
-from glob import iglob
 
 from datos import *
 
