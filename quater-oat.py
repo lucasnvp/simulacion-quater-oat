@@ -1,5 +1,6 @@
 import argparse
 import math
+from glob import iglob
 
 from datos import *
 
@@ -105,18 +106,18 @@ def main(iterations: int):
 
     # Resultados
     print("VENTAS", estados['ventas_totales'])
+    print(f"PROMEDIO_ANUAL_DE_VENTAS: {round((estados['ventas_totales']/(iterations/365)), 2)}")
     print("STOCK_AVENA", estados['stock_avena'])
     print(f"STOCK_AVENA_EMPAQUETADA: {estados['stock_avena_empaquetada']}")
     kg_totales = estados['ordenes_de_compra'] * TP
     print(f"ORDENES_DE_COMPRA: {estados['ordenes_de_compra']} ({kg_totales} kg)")
+    print(f"ORDENES_DE_COMPRA_ANUALES: {estados['ordenes_de_compra']/(iterations/365)}")
     print(f"DIA_EMPAQUETADO_PERDIDO_X_FALTA_ST: {estados['dia_empaquetado_perdido_x_stock']} ({round((estados['dia_empaquetado_perdido_x_stock']/iterations)*100,2)}%)")
     print(f"DIA_EMPAQUETADO_PERDIDO_X_MAQUINA: {estados['dia_empaquetado_perdido_x_maquina']} ({round((estados['dia_empaquetado_perdido_x_maquina']/iterations)*100,2)}%)")
     print(f"VENTA_PERDIDA_POR_FALTA_DE_PAQUETES: {estados['venta_perdida_por_falta_de_paquetes']} ({round((estados['venta_perdida_por_falta_de_paquetes']/estados['ventas_totales'])*100,2)}%)")
-    # print("PROMEDIO_ANUAL_DE_VENTAS", PROMEDIO_ANUAL_DE_VENTAS)
-    # print("PORCENTAJE_VENTAS_PERDIDAS", PORCENTAJE_VENTAS_PERDIDAS)
     print(f"KILOS_DESCARTADOS: {estados['kilos_descartados']} ({round((estados['kilos_descartados']/kg_totales)*100,2)}%)")
-    # print("PORCENTAJE_DE_PERDIDA_DEL_STOCK_POR_PESTE", PORCENTAJE_DE_PERDIDA_DEL_STOCK_POR_PESTE)
     print(f"BENEFICIO: {estados['beneficio']}")
+    print(f"BENEFICIO_ANUALIZADO: {round((estados['beneficio']/(iterations/365)), 2)}")
 
 
 if __name__ == "__main__":
