@@ -20,7 +20,10 @@ def desperfecto_equipo_de_empaquetado():
     # Genera un número aleatorio entre 0 y 1
     probabilidad = random.uniform(0, 1)  # Entre 0 y 1, representa 0% a 100%
 
-    return probabilidad <= 0.01
+    # Genera un número aleatorio entre 0% y 2%
+    probabilidad_de_peste = random.uniform(0, 0.02)
+
+    return probabilidad <= probabilidad_de_peste
 
 
 def ausencia_empleado():
@@ -35,8 +38,11 @@ def peste_en_avena():
     # Genera un número aleatorio entre 0 y 1
     probabilidad = random.uniform(0, 1)  # Entre 0 y 1, representa 0% a 100%
 
-    # El bolson de avena tiene una probabilidad de 1% a 2% de tener una peste
-    return 0.01 <= probabilidad <= 0.02
+    # Genera un número aleatorio entre 1% y 3%
+    probabilidad_de_peste = random.uniform(0.01, 0.03)
+
+    # El bolson de avena tiene una probabilidad de 1% a 3% de tener una peste
+    return probabilidad <= probabilidad_de_peste
 
 
 """
