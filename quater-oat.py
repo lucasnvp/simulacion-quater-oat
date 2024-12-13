@@ -1,21 +1,18 @@
 import argparse
-import math
 
 from datos import *
 
-# Control
-STOCK_REPOSICION_AVENA = 18000  # Cuando el stock de avena llega a 10 se realiza un pedido
-CANT_OPERARIOS = 4
 # Valores fijos
 TP = 28000 # TP: Tamaño de Pedido (Kg)
 VALOR_PAQUETE_1KG = 2800 # Entre 2800 y 3700 pesos x kg
 COSTO_KILO_AVENA = 780
 
+
 def llegada_de_pedido(estados):
     estados['stock_avena'] += TP
 
 
-def empaquetado(estados):
+def empaquetado(estados, cant_operarios):
     if desperfecto_equipo_de_empaquetado():
         estados['dia_empaquetado_perdido_x_maquina'] += 1
         return  # No se empaqueta
@@ -25,7 +22,7 @@ def empaquetado(estados):
         return
 
     operarios = 0
-    for i in range(CANT_OPERARIOS):
+    for i in range(cant_operarios):
         if not ausencia_empleado():
             operarios += 1
     paquetes = paquetes_por_dia() * operarios
@@ -70,11 +67,11 @@ def control_pestes_y_calidad(estados):
             estados['kilos_descartados'] += 1
 
 
-def main(iterations: int):
+def main(iterations: int, cant_operarios: int, stock_reposicion_avena: int):
     print("Quater Oat")
     print(f"Iteracions: {iterations} \n")
-    print(f"STOCK_REPOSICION_AVENA: {STOCK_REPOSICION_AVENA}")
-    print(f"CANT_OPERARIOS: {CANT_OPERARIOS} \n")
+    print(f"STOCK_REPOSICION_AVENA: {stock_reposicion_avena}")
+    print(f"CANT_OPERARIOS: {cant_operarios} \n")
 
     estados = {
         'stock_avena': 0,
@@ -96,10 +93,10 @@ def main(iterations: int):
 
         if t % 7 == 0:
             control_pestes_y_calidad(estados)
-        empaquetado(estados)
+        empaquetado(estados, cant_operarios)
         ventas(estados)
 
-        if estados['stock_avena'] <= STOCK_REPOSICION_AVENA and estados['fecha_llegada_pedido'] < t:
+        if estados['stock_avena'] <= stock_reposicion_avena and estados['fecha_llegada_pedido'] < t:
             generar_orden_de_compra(t, estados)
 
 
@@ -122,6 +119,8 @@ def main(iterations: int):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--iteration', default=365, type=int)
+    parser.add_argument('--cant_operarios', default=4, type=int)
+    parser.add_argument('--stock_reposicion_avena', default=18000, type=int)  # Cuando el stock de avena llega a este valor se realiza un pedido
     args = parser.parse_args()
 
-    main(iterations=args.iteration)
+    main(iterations=args.iteration, cant_operarios=args.cant_operarios, stock_reposicion_avena=args.stock_reposicion_avena)
