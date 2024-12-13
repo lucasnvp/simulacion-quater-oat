@@ -12,7 +12,7 @@ def llegada_de_pedido(estados):
     estados['stock_avena'] += TP
 
 
-def empaquetado(estados, cant_operarios):
+def empaquetado(dia_simulacion, estados, cant_operarios):
     if desperfecto_equipo_de_empaquetado():
         estados['dia_empaquetado_perdido_x_maquina'] += 1
         return  # No se empaqueta
@@ -23,7 +23,7 @@ def empaquetado(estados, cant_operarios):
 
     operarios = 0
     for i in range(cant_operarios):
-        if not ausencia_empleado():
+        if not ausencia_empleado(dia_simulacion):
             operarios += 1
     paquetes = paquetes_por_dia() * operarios
     kg_empaquetados = paquetes * 1
@@ -93,7 +93,7 @@ def main(iterations: int, cant_operarios: int, stock_reposicion_avena: int):
 
         if t % 7 == 0:
             control_pestes_y_calidad(estados)
-        empaquetado(estados, cant_operarios)
+        empaquetado(t, estados, cant_operarios)
         ventas(estados)
 
         if estados['stock_avena'] <= stock_reposicion_avena and estados['fecha_llegada_pedido'] < t:

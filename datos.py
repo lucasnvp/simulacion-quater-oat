@@ -26,12 +26,21 @@ def desperfecto_equipo_de_empaquetado():
     return probabilidad <= probabilidad_de_peste
 
 
-def ausencia_empleado():
-    # Genera un número aleatorio entre 0 y 1
-    probabilidad = random.uniform(0, 1)  # Entre 0 y 1, representa 0% a 100%
+def ausencia_empleado(dia_simulacion):
+    # Rangos de mayor probabilidad de enfermedad, del 15 de junio al 15 de agosto
+    INICIO_RANGO_INV = 165
+    FIN_RANGO_INV = 227
 
-    # El empleado tiene una probabilidad de 2% a 5% de faltar
-    return 0.02 <= probabilidad <= 0.05
+    dia_actual = dia_simulacion % 365
+    es_invierno = INICIO_RANGO_INV <= dia_actual <= FIN_RANGO_INV
+
+    # Probabilidad de ausencia según la estación
+    probabilidad_ausencia = 0.1 if es_invierno else 0.02
+
+    # Genera un número aleatorio entre 0 y 1
+    probabilidad = random.uniform(0, 1)
+
+    return probabilidad < probabilidad_ausencia
 
 
 def peste_en_avena():
