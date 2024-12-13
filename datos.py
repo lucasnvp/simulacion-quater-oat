@@ -39,9 +39,19 @@ def peste_en_avena():
     return 0.01 <= probabilidad <= 0.02
 
 
+"""
+FDP de demora_proveedor. Se modela como Gamma Distribution por método de la inversa
+Docs: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html
+ - alfa: continuous shape parameter (>0)
+ - beta: continuous scale parameter (>0)
+Devuelve valores aproximadamente entre 25 y 35
+"""
 def demora_proveedor():
-    return random.randint(25, 35)
-
+    alfa=133.38
+    beta=0.21101
+    R = random.uniform(0, 1)
+    # ppf (percent point function) is a less common name for the inverse of the Cumulative Distribution Function
+    return math.floor(gamma.ppf(R, alfa, scale=beta))
 
 def paquetes_por_dia():
     return random.randint(200, 250)
