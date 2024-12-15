@@ -59,12 +59,14 @@ def generar_orden_de_compra(t, estados):
     estados['beneficio'] -= TP * COSTO_KILO_AVENA
     estados['ordenes_de_compra'] += 1
 
-# Control sobre los paquetes de 1kg
+
 def control_pestes_y_calidad(estados):
+    # Control sobre los paquetes de 1 kg
     for i in range(estados['stock_avena_empaquetada']):
         if peste_en_avena():
             estados['stock_avena_empaquetada'] -= 1
             estados['kilos_descartados'] += 1
+    # Control sobre los bolsones de 25 kg
     for i in range(estados['stock_avena']):
         if peste_en_avena():
             estados['stock_avena'] -= 25
