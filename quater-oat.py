@@ -67,7 +67,7 @@ def control_pestes_y_calidad(estados):
             estados['stock_avena_empaquetada'] -= 1
             estados['kilos_descartados'] += 1
     # Control sobre los bolsones de 25 kg
-    for i in range(estados['stock_avena']):
+    for i in range(math.floor(estados['stock_avena']/25)):
         if peste_en_avena():
             estados['stock_avena'] -= 25
             estados['kilos_descartados'] += 25
