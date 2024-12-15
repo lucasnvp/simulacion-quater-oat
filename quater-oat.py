@@ -65,6 +65,10 @@ def control_pestes_y_calidad(estados):
         if peste_en_avena():
             estados['stock_avena_empaquetada'] -= 1
             estados['kilos_descartados'] += 1
+    for i in range(estados['stock_avena']):
+        if peste_en_avena():
+            estados['stock_avena'] -= 25
+            estados['kilos_descartados'] += 25
 
 
 def main(iterations: int, cant_operarios: int, stock_reposicion_avena: int):
