@@ -11,8 +11,8 @@ Docs: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.htm
  - beta: continuous scale parameter (>0)
 """
 def ventas_diarias():
-    alfa=3.3718
-    beta=515.21
+    alfa=3.3648
+    beta=206.4
     R = random.uniform(0, 1)
     # ppf (percent point function) is a less common name for the inverse of the Cumulative Distribution Function
     return math.floor(gamma.ppf(R, alfa, scale=beta))

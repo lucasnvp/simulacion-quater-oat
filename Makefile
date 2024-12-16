@@ -1,6 +1,6 @@
 # Run Simulation
 run:
-	uv run quater-oat.py --cant_operarios 4 --stock_reposicion_avena 18000 --iteration 3650
+	uv run quater-oat.py --cant_operarios 2 --stock_reposicion_avena 25000 --tp 28000 --iteration 3650
 
 run-f-1:
 	uv run quater-oat.py --cant_operarios 4 --stock_reposicion_avena 18000 --tp 28000 --iteration 3650
