@@ -1,6 +1,8 @@
 import random
 import math
 from scipy.stats import gamma
+import numpy as np
+
 
 """
 FDP de ventas diarias. Se modela como Gamma Distribution por método de la inversa
@@ -43,15 +45,21 @@ def ausencia_empleado(dia_simulacion):
     return probabilidad < probabilidad_ausencia
 
 
-def peste_en_avena():
-    # Genera un número aleatorio entre 0 y 1
-    probabilidad = random.uniform(0, 1)  # Entre 0 y 1, representa 0% a 100%
+def peste_en_avena(tasa_peste=0.01):
+    """Simula la aparición de una peste utilizando la distribución exponencial.
 
-    # Genera un número aleatorio entre 1% y 3%
-    probabilidad_de_peste = random.uniform(0.01, 0.03)
+    Args:
+        tasa_peste (float): Tasa de ocurrencia de la peste (por ejemplo, 0.01 = peste cada 100 días en promedio).
 
-    # El bolson de avena tiene una probabilidad de 1% a 3% de tener una peste
-    return probabilidad <= probabilidad_de_peste
+    Returns:
+        bool: Indica si hubo peste o no.
+    """
+
+    # Cuándo ocurre la peste (esperar un tiempo hasta la próxima peste)
+    tiempo_espera_peste = np.random.exponential(1 / tasa_peste)  # Tiempo de espera para la siguiente peste
+    peste_ocurre = tiempo_espera_peste < 1  # La peste ocurre dentro del día si el tiempo de espera es menor a 1 día
+
+    return peste_ocurre
 
 
 """
