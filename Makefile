@@ -14,6 +14,9 @@ run-f-3:
 run-f-4:
 	uv run quater-oat.py --cant_operarios 6 --stock_reposicion_avena 25000 --tp 28000 --iteration 3650
 
+run-f-5:
+	uv run quater-oat.py --cant_operarios 8 --stock_reposicion_avena 25000 --tp 28000 --iteration 3650
+
 run-1:
 	uv run quater-oat.py --cant_operarios 4 --stock_reposicion_avena 18000 --iteration 3650
 
