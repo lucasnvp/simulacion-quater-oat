@@ -7,8 +7,8 @@ VALOR_PAQUETE_1KG = 2800 # Entre 2800 y 3700 pesos x kg
 COSTO_KILO_AVENA = 780
 
 
-def llegada_de_pedido(estados):
-    estados['stock_avena'] += TP
+def llegada_de_pedido(estados, tp):
+    estados['stock_avena'] += tp
 
 
 def empaquetado(dia_simulacion, estados, cant_operarios):
@@ -49,6 +49,7 @@ def ventas(estados):
     else:
         estados['ventas_totales'] += estados['stock_avena_empaquetada']
         estados['beneficio'] += estados['stock_avena_empaquetada'] * VALOR_PAQUETE_1KG
+        estados['venta_parcialmente_perdida_por_falta_de_paquetes'] += 1
         estados['stock_avena_empaquetada'] = 0
 
 
@@ -86,6 +87,7 @@ def main(iterations: int, cant_operarios: int, stock_reposicion_avena: int, tp: 
         'ventas_totales': 0,
         'ordenes_de_compra': 0,
         'venta_perdida_por_falta_de_paquetes': 0,
+        'venta_parcialmente_perdida_por_falta_de_paquetes': 0,
         'dia_empaquetado_perdido_x_stock': 0,
         'dia_empaquetado_perdido_x_maquina': 0,
         'kilos_descartados': 0,
@@ -94,7 +96,7 @@ def main(iterations: int, cant_operarios: int, stock_reposicion_avena: int, tp: 
     for t in range(iterations):
         # Llegada de pedido
         if t == estados['fecha_llegada_pedido']:
-            llegada_de_pedido(estados)
+            llegada_de_pedido(estados, tp)
 
         if t % 7 == 0:
             control_pestes_y_calidad(estados)
@@ -116,6 +118,7 @@ def main(iterations: int, cant_operarios: int, stock_reposicion_avena: int, tp: 
     print(f"DIA_EMPAQUETADO_PERDIDO_X_FALTA_ST: {estados['dia_empaquetado_perdido_x_stock']} ({round((estados['dia_empaquetado_perdido_x_stock']/iterations)*100,2)}%)")
     print(f"DIA_EMPAQUETADO_PERDIDO_X_MAQUINA: {estados['dia_empaquetado_perdido_x_maquina']} ({round((estados['dia_empaquetado_perdido_x_maquina']/iterations)*100,2)}%)")
     print(f"VENTA_PERDIDA_POR_FALTA_DE_PAQUETES: {estados['venta_perdida_por_falta_de_paquetes']} ({round((estados['venta_perdida_por_falta_de_paquetes']/iterations)*100,2)}%)")
+    print(f"VENTA_PARCIALMENTE_PERDIDA_POR_FALTA_DE_PAQUETES: {estados['venta_parcialmente_perdida_por_falta_de_paquetes']} ({round((estados['venta_parcialmente_perdida_por_falta_de_paquetes']/iterations)*100,2)}%)")
     print(f"KILOS_DESCARTADOS: {estados['kilos_descartados']} ({round((estados['kilos_descartados']/kg_totales)*100,2)}%)")
     print(f"BENEFICIO: {estados['beneficio']}")
     print(f"BENEFICIO_ANUALIZADO: {round((estados['beneficio']/(iterations/365)), 2)}")
